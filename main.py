@@ -21,8 +21,8 @@ def rgb2y(filename):
     # _img_rgb = np.random.randint(5, size=(512, 512, 3))
     _width, _height, _ = _img_rgb.shape
     _img_y = np.empty((_width, _height), dtype=np.float)
-    _img_y[:, :] = 0.299 * _img_rgb[:, :, 0] + 0.587 * _img_rgb[:, :, 1] + 0.114 * _img_rgb[:, :, 2]
-    return _img_y, _width, _height # add zero shifting
+    _img_y[:, :] = (0.299 * _img_rgb[:, :, 0] + 0.587 * _img_rgb[:, :, 1] + 0.114 * _img_rgb[:, :, 2])-128.0 # Zero shifting
+    return _img_y, _width, _height
 
 
 def image2chunks2dct(image):
