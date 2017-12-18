@@ -1,4 +1,4 @@
 # JpegEncoderPython
-## Trialzczxczxc
-czxczxczxc
-zxczxczc
+## Todo
+##### Zero shifting
+##### Huffman coding
