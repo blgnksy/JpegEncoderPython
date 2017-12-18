@@ -1,4 +1,4 @@
 # JpegEncoderPython
 ## Todo
-##### Zero shifting **Done.
+##### Zero shifting **Done.**
 ##### Huffman coding
