@@ -1,9 +1,11 @@
+import math
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy import misc
 from scipy.fftpack import dct
 from tqdm import tqdm
 from itertools import *
+import pandas as pd
 
 import quantization_matrix as qm
 
@@ -21,7 +23,8 @@ def rgb2y(filename):
     # _img_rgb = np.random.randint(5, size=(512, 512, 3))
     _width, _height, _ = _img_rgb.shape
     _img_y = np.empty((_width, _height), dtype=np.float)
-    _img_y[:, :] = (0.299 * _img_rgb[:, :, 0] + 0.587 * _img_rgb[:, :, 1] + 0.114 * _img_rgb[:, :, 2])-128.0 # Zero shifting
+    _img_y[:, :] = (0.299 * _img_rgb[:, :, 0] + 0.587 * _img_rgb[:, :, 1] + 0.114 * _img_rgb[:, :,
+                                                                                    2]) - 128.0  # Zero shifting
     return _img_y, _width, _height
 
 
@@ -62,8 +65,28 @@ def hufmann(run_length_coded):
     return 0
 
 
-def huffmann_T1():
-    return 0
+def huffmann_T1(amplitude):
+    size = 1
+    while math.pow(2, size - 1) < amplitude:
+        size = size + 1
+    switcher = {
+        0: 00,
+        1: 010,
+        2: 011,
+        3: 100,
+        4: 101,
+        5: 110,
+        6: 1110,
+        7: 11110,
+        8: 111110,
+        9: 1111110,
+        10: 11111110,
+        11: lambda: 111111110,
+    }
+
+    huff_T1 = switcher.get(size, lambda: "nothing")
+
+    return huff_T1
 
 
 def huffmann_T2():
@@ -73,6 +96,7 @@ def huffmann_T2():
 def huffmann_T3():
     return 0
 
+print(huffmann_T1(10))
 
 if __name__ == '__main__':
     # Image Reading From File and RGB Converting to Luminance Channel.
