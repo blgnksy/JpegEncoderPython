@@ -17,6 +17,7 @@ zz_order_list = [(0, 0), (0, 1), (1, 0), (2, 0), (1, 1), (0, 2), (0, 3), (1, 2),
 
 previous_dc = 0.0
 
+huff_t1_df = pd.read_csv('./huff_t1.csv')
 
 def rgb2y(filename):
     _img_rgb = misc.imread(filename)
@@ -49,7 +50,7 @@ def quantize(dct_chunks):
 def order_chunks(q_chunks):
     _ordered_chunk = []
     for i in tqdm(range(len(zz_order_list))):
-        _ordered_chunk.append(q_chunks[0][zz_order_list[i]])
+        _ordered_chunk.append(q_chunks[0][zz_order_list[i]]) #for just one chunk
     return _ordered_chunk
 
 
@@ -66,28 +67,8 @@ def hufmann(run_length_coded):
 
 
 def huffmann_T1(amplitude):
-    size = 1
-    while math.pow(2, size - 1) < amplitude:
-        size = size + 1
-    switcher = {
-        0: 00,
-        1: 010,
-        2: 011,
-        3: 100,
-        4: 101,
-        5: 110,
-        6: 1110,
-        7: 11110,
-        8: 111110,
-        9: 1111110,
-        10: 11111110,
-        11: lambda: 111111110,
-    }
-
-    huff_T1 = switcher.get(size, lambda: "nothing")
-
-    return huff_T1
-
+    size = int(math.log(abs(amplitude), 2)) + 1
+    return huff_t1_df['Code'][size]
 
 def huffmann_T2():
     return 0

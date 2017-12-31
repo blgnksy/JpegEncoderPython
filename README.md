@@ -10,5 +10,9 @@ The aim of the project is the encoding a raw image using JPEG. The input is a ra
 6. Write evertihing to a file.
 
 ## Todo
-##### Zero shifting **Done.**
-##### Huffman coding ** Done with errors.**
+##### Zero shifting-Done.
+##### Huffman coding-T1-Done.
+##### Huffman coding-T2.
+##### Huffman coding-T3.
+##### It is for one chunk. I will do it for all image. 
+
