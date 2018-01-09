@@ -19,9 +19,9 @@ previous_dc = 0.0
 
 huff_t1_df = pd.read_csv('./huff_t1.csv')
 
+
 def rgb2y(filename):
     _img_rgb = misc.imread(filename)
-    # _img_rgb = np.random.randint(5, size=(512, 512, 3))
     _width, _height, _ = _img_rgb.shape
     _img_y = np.empty((_width, _height), dtype=np.float)
     _img_y[:, :] = (0.299 * _img_rgb[:, :, 0] + 0.587 * _img_rgb[:, :, 1] + 0.114 * _img_rgb[:, :,
@@ -50,7 +50,7 @@ def quantize(dct_chunks):
 def order_chunks(q_chunks):
     _ordered_chunk = []
     for i in tqdm(range(len(zz_order_list))):
-        _ordered_chunk.append(q_chunks[0][zz_order_list[i]]) #for just one chunk
+        _ordered_chunk.append(q_chunks[0][zz_order_list[i]])  # for just one chunk
     return _ordered_chunk
 
 
@@ -70,14 +70,33 @@ def huffmann_T1(amplitude):
     size = int(math.log(abs(amplitude), 2)) + 1
     return huff_t1_df['Code'][size]
 
-def huffmann_T2():
-    return 0
+
+def huffmann_T2(amplitude):
+    size = int(math.log(abs(amplitude), 2)) + 1
+    code = None
+    if size == 0:
+        code = None
+    else:
+        if amplitude > 0:
+            to_code = pow(2, size - 1)
+            code = bin((amplitude - to_code) | (1 << (size - 1)))
+        else:
+            to_code = pow(2, size) - 1
+            code = binbits((to_code + amplitude), size)
+    return code
 
 
 def huffmann_T3():
     return 0
 
-print(huffmann_T1(10))
+
+def binbits(x, n):
+    """Return binary representation of x with at least n bits"""
+    bits = bin(x).split('b')[1]
+
+    if len(bits) < n:
+        return '0b' + '0' * (n - len(bits)) + bits
+
 
 if __name__ == '__main__':
     # Image Reading From File and RGB Converting to Luminance Channel.
@@ -99,5 +118,6 @@ if __name__ == '__main__':
     run_length_coded = run_length_code(ordered_chunk=ordered_chunk)
 
     hufmann(run_length_coded=run_length_coded)
+
     plt.interactive(True)
     plt.imshow(img_y, cmap='gray')
