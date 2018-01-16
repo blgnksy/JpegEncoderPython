@@ -108,3 +108,5 @@ ENV/
 # Folders
 .idea/
 
+# Mac Dummies
+.DS_Store
