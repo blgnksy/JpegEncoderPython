@@ -12,7 +12,8 @@ The aim of the project is the encoding a raw image using JPEG. The input is a ra
 ## Todo
 ##### Zero shifting-Done.
 ##### Huffman coding-T1-Done.
-##### Huffman coding-T2.
-##### Huffman coding-T3.
-##### It is for one chunk. I will do it for all image. 
+##### Huffman coding-T2.-Done.
+##### Huffman coding-T3.-Done.
+##### It is for one chunk. I will do it for all image. -Done
+##### Writing Errors While Binary File(Check Define Huffman/Quantiation Table)
 
